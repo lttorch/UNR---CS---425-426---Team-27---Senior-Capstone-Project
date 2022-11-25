@@ -1,5 +1,41 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+/*
+Author:
+
+	Cole Wheeler
+
+Made for:
+
+	CS-425 team 27
+
+Notes:
+
+	!-Begin Custom-! and !-End Custom-! are used to indicate where my code blocks begin and end from the pregenerated code.
+
+History:
+
+	11/23/22: Created class
+
+		Created Variables:
+			- const bool intializeCamera
+			- static inline bool cameraUpdate
+			- static inline unsigned short cameraId
+			- static const unsigned short maxCameraId
+
+		Created Function:
+			- static void AdvanceCamera()
+
+		Created Functionalities:
+			- A boolean controlled expression that will override the default camera at the start of the game. (In BeginPlay)
+			- UPROPERTY components to link to camera actors in the editor.
+			- AdvanceCamera will mark to iterate to the next UPROPERTY camera each time it's called. (Will reset to 0 when the last camera is called)
+
+	11/24/22: Intergrated with main project
+
+		Updated:
+			- Added Header as I forgot that from the previous update.
+*/
 
 #include "CameraDirector.h"
 

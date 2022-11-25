@@ -51,6 +51,14 @@ History:
 			- A boolean controlled expression that will override the default camera at the start of the game. (In BeginPlay)
 			- UPROPERTY components to link to camera actors in the editor.
 			- AdvanceCamera will mark to iterate to the next UPROPERTY camera each time it's called. (Will reset to 0 when the last camera is called)
+			
+	11/24/22: Intergrated with main project
+		
+		Updated:
+			- Class designation changed:
+				from:	class CAMERATESTPROJECT_API ACameraDirector : public AActor
+				to:		class BLUEPRINTTEST_API ACameraDirector : public AActor
+				(Need the prefix to the "<project_name>_API")
 */
 
 #pragma once
@@ -60,7 +68,7 @@ History:
 #include "CameraDirector.generated.h"
 
 UCLASS()
-class CAMERATESTPROJECT_API ACameraDirector : public AActor
+class BLUEPRINTTEST_API ACameraDirector : public AActor
 {
 	GENERATED_BODY()
 	
