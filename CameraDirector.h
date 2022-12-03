@@ -31,8 +31,8 @@ How to use class:
 
 	Blueprint Specific:
 
-		Under the catagory "Camera" you can find the AdvanceCamera.
-		You should be able to place the component and call AdvanceCamera from Blueprint. (Untested)
+		Under the catagory "Camera" you can find the AdvanceCamera and ChangeToCameraId.
+		You should be able to place the component and call both functions from Blueprint.
 
 History:
 
@@ -59,9 +59,23 @@ History:
 				from:	class CAMERATESTPROJECT_API ACameraDirector : public AActor
 				to:		class BLUEPRINTTEST_API ACameraDirector : public AActor
 				(Need the prefix to the "<project_name>_API")
+				
+	12/2/22: Added functionalities
+	
+		Updated:
+			- Moved #include "Kismet/GameplayStatics.h" to header file from cpp file.
+				
+		Added:
+			- cameraArray that will hold all camera pointers indexed by their corresponding ids
+			- Additional AActor* Camera pointers.
+			
+			- Function: ChangeToCameraId
 */
 
 #pragma once
+
+// Required for APlayerController
+#include "Kismet/GameplayStatics.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -96,16 +110,30 @@ private:
 	// Used to change the cameras position.
 	static inline unsigned short cameraId = 0;
 	// Used to reset the Id if it increments past the maximum.
-	static const unsigned short maxCameraId = 1;
+	static const unsigned short maxCameraId = 2;
+
+	// Will store all camera ids for quick access.
+	AActor* cameraArray [maxCameraId + 1];
 
 public:
 	// Called to increment cameraId.
 	// UFUNCTION will allow blueprint components to call the function as well as C++ calls.
+
+	// Will increment the variable cameraId and change the active camera to the next ided camera.
 	UFUNCTION(BlueprintCallable, Category = "Camera")
 	static void AdvanceCamera();
 
+	// Will set the variable cameraId and change the active camera to the corresponding ided camera.
+	UFUNCTION(BlueprintCallable, Category = "Camera")
+	static bool ChangeToCameraId(int32 newCameraId);
+
+
 	// Blueprint Camera components
-	UPROPERTY(EditAnywhere) AActor* Camera0;
+	// Will be mapped to the default player pawn that is spawned when the game/level is run.
+	AActor* Camera0;
+	
+	// All UPROPERTY Cameras will be mapped to existing entities such as enemies.
 	UPROPERTY(EditAnywhere) AActor* Camera1;
-// !-End Custom-!
+	UPROPERTY(EditAnywhere) AActor* Camera2;
 };
+// !-End Custom-!
