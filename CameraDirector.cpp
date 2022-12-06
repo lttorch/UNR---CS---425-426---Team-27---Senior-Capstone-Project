@@ -9,6 +9,10 @@ Made for:
 
 	CS-425 team 27
 
+Description:
+
+	Implementation file for the CameraDirector.h class.
+
 Notes:
 
 	!-Begin Custom-! and !-End Custom-! are used to indicate where my code blocks begin and end from the pregenerated code.
@@ -35,26 +39,42 @@ History:
 
 		Updated:
 			- Added Header as I forgot that from the previous update.
-			
+
 	12/2/22: Added Functionalities
-	
-		Updated: 
+
+		Updated:
 			- Moved #include "Kismet/GameplayStatics.h" to header file from cpp file.
-			
+
 			BeginPlay:
 				- Added statement to set Camera0 to the default pawn's default camera. (Default pawn is the one that is spawned from PlayerStart)
-				
+
 				- Added statements to insert Camera entity pointers into the array cameraArray.
-				
+
 				- Updated SetViewTarget with cameraArray pointer.
-				
-			Tick:			
+
+			Tick:
 				- Updated SetViewTarget with cameraArray pointer.
-				
+
 		Added:
 			ChangeToCameraId:
 				- Will set the camera Id to the set value.
 				- Returns true on success and false on failure.
+
+	12/6/22: Added Functionalities
+
+		Updated:
+			BeginPlay:
+				- A series of if else statements to initialize maxCameraId upon level start.
+				- A series of if else statements to initialize BP_defaultId upon level start.
+				- Loading Camera2 -> Camera9 into the camera Array
+				- Will now initialize active camera to the BP_defaultId camera.
+
+			AdvanceCamera:
+				- Improved comment header for clarity in the Unreal Editor
+
+			ChangeToCameraId:
+				- Improved comment header for clarity in the Unreal Editor
+			
 */
 
 #include "CameraDirector.h"
@@ -64,15 +84,52 @@ ACameraDirector::ACameraDirector()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
+
 }
 
 // Called when the game starts or when spawned
 void ACameraDirector::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	// !-Begin Custom-!
+	// We will initialize the blueprint values when the level is loaded to prevent stale data from a previous level from interfering 
+	// with the static functions instead of the constructor.
+
+	// Set maxCameraId with the infromation from blueprint.
+	// If the provided value too large.
+	if (BP_maxCameraId > MaxPossibleCameraId)
+	{
+		// Set the max value to the maximum possible.
+		maxCameraId = MaxPossibleCameraId;
+	}
+	// If the provided value is less then 0.
+	else if (BP_maxCameraId < 0)
+	{
+		// Set the max value to zero.
+		maxCameraId = 0;
+	}
+	// Otherwise we have a valid max camera Id.
+	else
+	{
+		// Store this valid value.
+		maxCameraId = BP_maxCameraId;
+	}
+
+	// Error check the value provided by blueprint for BP_defaultId.
+	// Check to see if it is under the minimum value 0.
+	if (BP_defaultId < 0)
+	{
+		// Set it to zero.
+		BP_defaultId = 0;
+	}
+	// Check to see if it is over the maximum value.
+	else if (BP_defaultId > maxCameraId)
+	{
+		BP_defaultId = maxCameraId;
+	}
+	// Otherwise we do not change the value as it is valid.
+	
 	// Will find and map Camera0 to the player pawn that is spawned at the PlayerStart entity when the game begins.
 	Camera0 = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	
@@ -80,13 +137,20 @@ void ACameraDirector::BeginPlay()
 	cameraArray[0] = Camera0;
 	cameraArray[1] = Camera1;
 	cameraArray[2] = Camera2;
-		
+	cameraArray[3] = Camera3;
+	cameraArray[4] = Camera4;
+	cameraArray[5] = Camera5;
+	cameraArray[6] = Camera6;
+	cameraArray[7] = Camera7;
+	cameraArray[8] = Camera8;
+	cameraArray[9] = Camera9;
+	
 	// If the initializeCamera constant is set to true, then we will override whatever the default camera is.
 	if (intializeCamera)
 	{
 		// Used to set the camera to the first position at the start of the game.
 		APlayerController* OurPlayerController = UGameplayStatics::GetPlayerController(this, 0);
-		OurPlayerController->SetViewTarget(cameraArray[0]);
+		OurPlayerController->SetViewTarget(cameraArray[BP_defaultId]);
 	}
 	// !-End Custom-!
 }
@@ -95,7 +159,6 @@ void ACameraDirector::BeginPlay()
 void ACameraDirector::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-		
 
 	// !-Begin Custom-!
 	// If we need to update the camera. (Will prevent needless camera switchs.)
@@ -116,7 +179,9 @@ void ACameraDirector::Tick(float DeltaTime)
 }
 
 // !-Begin Custom-!
-// Will increment the cameraId and indicate that a camera update is required.
+
+// Will increment the cameraId and update the camera on the next frame.
+// Returns: Nothing (Void).
 void ACameraDirector::AdvanceCamera()
 {
 	// Indicate that a change of camera Id has occured.
@@ -136,9 +201,9 @@ void ACameraDirector::AdvanceCamera()
 }
 
 // Will set the cameraId to the indicated value.
-// If successful:	Indicate that a camera update is required and return true.
+// Input:			Int value range: [0,9]
+// If successful:	Update the camera on the next frame and return true.
 // Else:			Return false.
-// Default Parameter: newCameraId: Will store the new camera Id which will be tested for validity.
 bool ACameraDirector::ChangeToCameraId(int32 newCameraId = -1)
 {
 	// Check if the sent Id is equivilant to the currentId.
