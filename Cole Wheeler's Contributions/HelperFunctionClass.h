@@ -19,10 +19,14 @@ Notes:
 
 History:
 
-	1/29/23: Created Class
+	1/29/23: Created Class - Cole Wheeler
 		
 		Created Blueprint exposed function DAC_Movement_Helper_Function.
 			(Needs testing.)
+
+	1/30/23: Integrated with Project - Cole Wheeler
+		
+		Changed Class API to project name so it would compile.
 
 */
 
@@ -33,7 +37,7 @@ History:
 #include "HelperFunctionClass.generated.h"
 
 UCLASS()
-class CAMERATESTPROJECT_API AHelperFunctionClass : public AActor
+class BLUEPRINTTEST_API AHelperFunctionClass : public AActor
 {
 	GENERATED_BODY()
 	
@@ -55,7 +59,7 @@ private:
 	// UFUNCTION will allow blueprint components to call the function as well as C++ calls.
 
 	// A helper function for the Demon_AI_Controller Blueprint.
-	UFUNCTION(BlueprintCallable, Category = "Custom C++ Helper Function")
+	UFUNCTION(BlueprintCallable, Category = "Custom C++ Helper Function") 
 		static bool DAC_Movement_Helper_Function(const float actorDistance, const float maxDistanceAllowed, const AActor* targetCube, const AActor* desiredCube);
 
 };

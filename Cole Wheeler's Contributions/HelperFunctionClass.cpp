@@ -19,7 +19,7 @@ Notes:
 
 History:
 
-	1/29/23: Created Class
+	1/29/23: Created Class - Cole Wheeler
 
 		Created Blueprint exposed function DAC_Movement_Helper_Function.
 			Will accept:
@@ -27,6 +27,8 @@ History:
 					and 
 				Two object references and check to see if they are referencing the same object.
 			(Needs testing.)
+
+	1/30/23: Integrated with Project - Cole Wheeler
 
 */
 
