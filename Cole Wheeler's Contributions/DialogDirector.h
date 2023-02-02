@@ -19,9 +19,17 @@ Notes:
 
 History:
 
-	1/27/23: Created Class
+	1/27/23: Created Class - Cole Wheeler
 
 		Created two test code snippets that test FFileHelper::LoadFileToStringArray and FFileHelper::LoadFileToString from a file stored in the config folder of the Unreal Project.
+
+	2/1/23: Created Function: DD_Read_At_Line_Index - Cole Wheeler
+
+		Removed depreciated private variables as they are no longer needed.
+
+		Created function call for DD_Read_At_Line_Index and implemented it in DialogDirector.cpp.
+
+		Tested in testbed environment, ready for integration in main project.
 
 */
 
@@ -49,16 +57,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 // !- Begin Custom - !
-private:
-	
-	// Contain default file path to directory where the files will be contained.
-	FString filePath;
-	// Name of the file.
-	FString fileName;
-	// Used to store the output of reading from the file.
-	TArray <FString> tempArray;
-	// Used to store the individual 
-	FString tempString;
+public:
+
+	// Will open the designated file in the project's Config folder, read in the content of the file, and return it the string at the indicated line index sent.
+	UFUNCTION(BlueprintCallable, Category = "Dialog Director")
+		static FString DD_Read_At_Line_Index (FString fileName, const int32 lineIndex);
 
 // !- End Custom - !
 };
