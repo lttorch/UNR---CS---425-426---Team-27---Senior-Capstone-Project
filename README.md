@@ -3,8 +3,11 @@ CS-426 Senior Project in Computer Science, Spring 2023, at University of Reno Ne
 
 # Team 27 Members
 John Busse
+
 Bryce Farley
+
 Cole Renfo
+
 Cole Wheeler
 
 # Team 27 Manager
@@ -12,6 +15,7 @@ Chris Collum
 
 # Instructors
 Dr. Dave Feil-Seifer
+
 Dr. Devrin Lee
 
 # External Advisors
