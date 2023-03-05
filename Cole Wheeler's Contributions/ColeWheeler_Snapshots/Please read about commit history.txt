@@ -1,0 +1,7 @@
+On 3-4-23 I had to rename all images and recommit them because John Busse was not able to push commits using the GitHub Desktop app.
+
+So I went through and shorted all directory and file names to accomodate this.
+
+Note that the commit time placed on them is not the original commit day of any before 3-4-23!
+
+Thank you for your patience - Cole Wheeler.
