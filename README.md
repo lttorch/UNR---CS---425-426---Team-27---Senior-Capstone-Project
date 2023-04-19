@@ -11,9 +11,9 @@ Cole Renfro
 Cole Wheeler
 
 # Instructors
-Dr. Dave Feil-Seifer
+Dr. David Feil-Seifer
 
-Dr. Devrin Lee
+Devrin Lee
 
 # Team 27 Advisor and Manager
 Chris Collum
