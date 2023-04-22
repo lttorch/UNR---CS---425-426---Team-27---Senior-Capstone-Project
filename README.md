@@ -72,6 +72,6 @@ With these features we our team have ideally provided our players with an unique
 ![Team 27 Project Poster](https://user-images.githubusercontent.com/70247361/233002519-34d47954-4a95-4f63-832d-b8b5164fc867.png)
 
 # Project Video
-Placeholder - Add Video Link Here
+[https://youtu.be/pTlSQ-323B4](https://youtu.be/pTlSQ-323B4)
 
 
